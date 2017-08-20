@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js --exec babel-node",
     "mocha-test": "mocha --compilers js:babel-core/register || exit 0",
-    "test": "nodemon src/index.js && nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register || exit 0"
+    "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register || exit 0"
   },
   "keywords": [],
   "author": "",
