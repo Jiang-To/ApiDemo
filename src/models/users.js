@@ -22,11 +22,18 @@ const userSchema = new Schema({
 })
 
 
-userSchema.static.findByUsername = function (username, callback) {
-  return this.findOne({
-    username: username
-  }, callback);
+userSchema.statics.findByUsername = function (username, callback) {
+  this
+    .findOne({username: username})
+    .exec(callback)
 }
+
+userSchema.statics.findAll = function(callback){
+  this
+    .find()
+    .exec(callback)
+}
+
 
 // generate salt before user save
 userSchema.pre('save', function (next) {
@@ -59,4 +66,4 @@ userSchema.methods.comparePassword = function (password, callback) {
 }
 
 
-export default mongoose.model('User', userSchema, 'users')
+module.exports = mongoose.model('User', userSchema, 'users')

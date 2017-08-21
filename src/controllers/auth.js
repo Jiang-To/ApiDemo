@@ -1,5 +1,8 @@
 'use strict'
 
-const login = (req, res) => {
+const User = require('../models/users')
+const resUtil = require('../utils/resUtil')
+
+const login = function(req, res){
   
 }

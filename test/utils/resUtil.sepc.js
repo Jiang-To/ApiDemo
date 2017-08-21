@@ -12,7 +12,9 @@ describe('Utils - resUtil', () => {
   describe('sendJson', () => {
 
     it('send with success data', () => {
-      var res = { json: sinon.spy() }
+      var res = {
+        json: sinon.spy()
+      }
 
       resUtil.sendJson(res, null, 'success data');
       expect(res.json).calledWith({
@@ -25,7 +27,9 @@ describe('Utils - resUtil', () => {
     })
 
     it('send with error data', () => {
-      var res = { json: sinon.spy() }
+      var res = {
+        json: sinon.spy()
+      }
 
       resUtil.sendJson(res, 'error data', null);
       expect(res.json).calledWith({
