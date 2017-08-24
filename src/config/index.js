@@ -1,6 +1,6 @@
 'use strict'
 
-const nconif = require('nconf')
+const nconf = require('nconf')
 const path = require('path')
 const _ = require('lodash')
 
@@ -11,4 +11,8 @@ var baseConfig = require('./base.config')
 var envConfig = require('./' + env + '.config')
 
 var config = _.merge({}, baseConfig, envConfig)
+
+
+
+
 module.exports = config

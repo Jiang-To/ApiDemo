@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js --exec babel-node",
-    "mocha-test": "mocha --compilers js:babel-core/register || exit 0",
+    "dev": "SET NODE_ENV=dev nodemon src/server.js --exec babel-node",
+    "mocha-test": "SET NODE_ENV=test mocha --compilers js:babel-core/register || exit 0",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register || exit 0"
   },
   "keywords": [],

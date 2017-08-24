@@ -9,8 +9,8 @@ chai.use(sinonChai)
 const resUtil = require('../../src/utils/resUtil')
 
 describe('Utils - resUtil', () => {
+  
   describe('sendJson', () => {
-
     it('send with success data', () => {
       var res = {
         json: sinon.spy()

@@ -22,18 +22,15 @@ const userSchema = new Schema({
 })
 
 
-userSchema.statics.findByUsername = function (username, callback) {
-  this
-    .findOne({username: username})
-    .exec(callback)
+userSchema.statics.findByUsername = function (username) {
+  let query = this.findOne({username: username})
+  return query.exec()
 }
 
-userSchema.statics.findAll = function(callback){
-  this
-    .find()
-    .exec(callback)
+userSchema.statics.findAll = function(){
+  let query = this.find()
+  return query.exec()
 }
-
 
 // generate salt before user save
 userSchema.pre('save', function (next) {
@@ -54,15 +51,9 @@ userSchema.pre('save', function (next) {
   })
 })
 
-userSchema.methods.comparePassword = function (password, callback) {
+userSchema.methods.comparePassword = function (password) {
   let user = this
-  bcrypt.compare(password, user.password, function (err, isMatch) {
-    if (err) {
-      return next(err)
-    }
-
-    callback(null, isMatch)
-  })
+  return bcrypt.compare(password, user.password)
 }
 
 

@@ -1,21 +1,18 @@
 'use strict'
 
-const express = require('express')
 const config = require('./config')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-const port = config.port
+const mongoose = require('mongoose')
+const nconf = require('nconf')
 
-const app = express()
+require('./models')(mongoose)
 
-app.use(morgan('dev'))
-app.use(bodyParser.json())
+const mongoOptions = {
 
+}
 
-app.get('/', (req, res) => {
-  res.send("hello world")
+mongoose.connect(config.dbUrl, mongoOptions, () => {
+  console.log('mongo db connected')
 })
 
-app.listen(port, () => {
-  console.log('start listening on port %s', port)
-})
+console.log(process.env.NODE_ENV);
+
