@@ -46,20 +46,42 @@ describe('Models - Users', () => {
   })
 
   describe('Model validation', () => {
-    it('username is required', (done) => {
+    it('username is required', () => {
       let user = new User({});
       ///     error
-      user.save()
-        .catch(err=>{
+       return user.save().then()
+        .catch(err => {
           expect(err).to.not.be.null
-          expect(err).to.not.null
-          done();
+          expect(err.errors).has.property('username')
         })
     });
+
+    it('password is required', () => {
+      let user = new User({username: 'user'});
+      ///     error
+       return user.save().then()
+        .catch(err => {
+          expect(err).to.not.be.null
+          expect(err.errors).has.property('password')
+        })
+    });
+
+    it('password should not changed if not updated or new created', () => {
+      let passwordHash = ''
+      return User.findByUsername(user1.username)
+        .then(user => {
+          passwordHash = user.password
+          return user.save()
+        })
+        .then(user => {
+          expect(user.password).to.equals(passwordHash)
+        })
+    });
+
   })
 
   describe('Get all users', () => {
-    it('should return all users', (done) => {
+    it('should return all users', () => {
       // // arrange
       // let mockFind = {
       //   find: function () {
@@ -81,15 +103,13 @@ describe('Models - Users', () => {
 
       // arrange
 
-      User.findAll()
+      return User.findAll()
         .then((users) => {
           expect(users.length).to.equals(3)
           expect(users).to.be.an('array')
           expect(users[0].username).to.equal(user1.username)
           expect(users[0].password).to.equal(user1.password)
-          done()
         })
-        .catch(err => done(err))
     })
   })
 
@@ -116,28 +136,24 @@ describe('Models - Users', () => {
 
   describe('Validate user password', () => {
 
-    it('return true when password matched', (done) => {
-      User.findByUsername(user1.username)
+    it('return true when password matched', () => {
+      return User.findByUsername(user1.username)
         .then(user => {
           return user.comparePassword('password1')
         })
         .then(isMatch => {
           expect(isMatch).to.be.true
         })
-        .then(() => done())
-        .catch(err => done(err))
     })
 
-    it('return false when password matched', (done) => {
-      User.findByUsername(user1.username)
+    it('return false when password doesn\'t matched', () => {
+      return User.findByUsername(user1.username)
         .then(user => {
           return user.comparePassword('wrong password')
         })
         .then(isMatch => {
           expect(isMatch).to.be.false
         })
-        .then(() => done())
-        .catch(err => done(err))
     })
   })
 })

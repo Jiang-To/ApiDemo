@@ -12,7 +12,4 @@ var envConfig = require('./' + env + '.config')
 
 var config = _.merge({}, baseConfig, envConfig)
 
-
-
-
 module.exports = config
